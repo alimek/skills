@@ -1,0 +1,5 @@
+interface:
+  display_name: "Grill Panel"
+  short_description: "Subagents answer the grill; you review one ballot"
+policy:
+  allow_implicit_invocation: false
