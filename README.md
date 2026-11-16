@@ -21,6 +21,22 @@ npx skills add alimek/skills --global
 
 Add `--skill <name>` to install a single skill.
 
+## Requirements
+
+These skills build on [mattpocock/skills](https://github.com/mattpocock/skills) and call some of them by name, so install those as well:
+
+```bash
+npx skills add mattpocock/skills --global
+```
+
+| Skill here | Needs from mattpocock/skills |
+| --- | --- |
+| `grill-panel` | `grilling`, `domain-modeling` |
+| `implementer-handoff` | `pr` |
+| `takeover` | `pr` |
+
+`fan-out`, `pr-comments` and `pr-completion`, which other skills here call, are part of this repository.
+
 ## Credits
 
-`pr-comments` and `takeover` are adapted from [t3dotgg/tstack](https://github.com/t3dotgg/tstack) (MIT). Several skills call skills from [mattpocock/skills](https://github.com/mattpocock/skills): `pr`, `grilling`, `domain-modeling`.
+`pr-comments` and `takeover` are adapted from [t3dotgg/tstack](https://github.com/t3dotgg/tstack) (MIT).
