@@ -23,11 +23,11 @@ Resolve provider instances, model IDs and supported options from live capabiliti
 | --- | --- | --- |
 | Callstack `callstack/Apex` | Tight React Native or Next.js implementation; unlimited allocation when available | Provider default |
 | Cursor `composer-2.5` | Scoped implementation; subscription allocation when available | Provider default |
-| `gpt-6.1-sol` | Fact gathering, scoped implementation, routine design questions | Low for tight work; medium when judgment is needed |
+| `gpt-6.2-sol` | Fact gathering, scoped implementation, routine design questions | Low for tight work; medium when judgment is needed |
 | `claude-haiku-5-5` | Bounded factual scouting and tight execution | Provider default |
 | `claude-sonnet-5-5` | Scoped implementation and routine design alternative | Medium |
 | `claude-opus-5-5` | Ambiguous design, hard debugging, independent review and red team | Medium, set explicitly |
-| `gpt-6-astra` | Ambiguous design, hard debugging, independent review and red team | High for demanding review; medium otherwise |
+| `gpt-6.2-astra` | Ambiguous design, hard debugging, independent review and red team | High for demanding review; medium otherwise |
 | `grok-4.7` | An independent third design perspective; scoped work on subscription allocation | Provider default |
 
 Select Fable (`claude-fable-5-2`) only when the user explicitly requests it for the task; this restriction also applies to escalation, retries and availability fallbacks.
