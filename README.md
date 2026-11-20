@@ -12,6 +12,7 @@ Agent skills I use, kept in one place so their history is tracked.
 | `implementer-handoff` | Stage rules for an implementer whose change passes to a separate reviewer and PR finisher. |
 | `design-prototype` | Prototypes a UI change in Figma as lettered variants on a WIP page, then promotes the accepted one. |
 | `takeover` | Finishes a PR, branch or agent thread someone else started. |
+| `spec-run` | Orchestrates a spec's tickets onto one integration branch through delegated implementers and mergers, with delta re-review after corrections. Replaces `implement-spec` from mattpocock/skills. |
 
 ## Install
 
@@ -34,8 +35,9 @@ npx skills add mattpocock/skills --global
 | `grill-panel` | `grilling`, `domain-modeling` |
 | `implementer-handoff` | `pr` |
 | `takeover` | `pr` |
+| `spec-run` | `tdd` |
 
-`fan-out`, `pr-comments` and `pr-completion`, which other skills here call, are part of this repository.
+`fan-out`, `implementer-handoff`, `source-review`, `pr-comments` and `pr-completion`, which other skills here call, are part of this repository.
 
 ## Credits
 
