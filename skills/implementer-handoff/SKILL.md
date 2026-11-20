@@ -11,7 +11,7 @@ This skill overrides any implementation skill it is combined with wherever they 
 
 ## Workspace and PR
 
-- Work in the workspace and on the branch this task assigns, on every visit. When the incoming handoff names a PR head branch other than the local one, publish with `git push origin HEAD:<that branch>`.
+- Work in the workspace and on the branch this task assigns, on every visit. When the task names a PR, publish to its head repository and head branch (on a fork PR that is not `origin`), then confirm the PR reports your HEAD SHA.
 - All work lands in **one PR**. It stays a draft until the independent review passes; on a correction visit, mark it draft again before changing code.
 - Write the PR body with `$pr` inside the repository's PR template, with the required attachments, before the handoff.
 - The reviewer's ledger, reports and last reviewed HEAD are the reviewer's records. Read them; leave them unedited.
@@ -31,7 +31,7 @@ Hand off as soon as the verified HEAD is pushed and the PR body is complete. Pen
 The handoff message names:
 
 - the task, spec and tickets;
-- repository, PR, head and base branches, the pinned base and the full published HEAD SHA;
+- repository, PR, head repository and branch, base branch, the pinned base and the full HEAD SHA the PR reports;
 - each local command you ran, its result and the state it covered, with evidence references;
 - the disposition of every finding from earlier visits;
 - the reviewer's ledger references, the owner's decisions and any operational recovery so far.
