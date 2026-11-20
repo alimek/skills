@@ -26,15 +26,17 @@ Resolve provider instances, model IDs and supported options from live capabiliti
 | `gpt-6.1-sol` | Fact gathering, scoped implementation, routine design questions | Low for tight work; medium when judgment is needed |
 | `claude-haiku-5-5` | Bounded factual scouting and tight execution | Provider default |
 | `claude-sonnet-5-5` | Scoped implementation and routine design alternative | Medium |
+| Mistral Large 4 via Vibe (`mistral-large-4-0-3`) | Bounded factual scouting and scoped implementation | Provider default |
 | `claude-opus-5-5` | Ambiguous design, hard debugging, independent review and red team | Medium, set explicitly |
 | `gpt-6-astra` | Ambiguous design, hard debugging, independent review and red team | High for demanding review; medium otherwise |
-| `grok-4.7` | An independent third design perspective; scoped work on subscription allocation | Provider default |
+| `gemini-4-neon` | Ambiguous design, hard debugging, independent review and red team | High for demanding review; medium otherwise |
+| `grok-4.7` | An independent design perspective; scoped work on subscription allocation | Provider default |
 
 Select Fable (`claude-fable-5-2`) only when the user explicitly requests it for the task; this restriction also applies to escalation, retries and availability fallbacks.
 
 For implementation, route by how much judgment remains in the brief, not code volume. For factual research, use a cheap scout; interpreting conflicting evidence is a judgment task. For review, consequential design or red team, use the strong judgment models rather than the cheap execution tier. A tight review brief can still require deep judgment.
 
-When the caller requires two independent strong judgments, prefer Opus and Astra. For a three-family design panel, add Grok. For a red team independent of the parent, choose a strong model from another creator. Preserve the caller's required count and diversity when selecting from the live catalog; if they cannot be met, report the gap. A user-pinned unavailable provider/model or a failed dispatch follows T3's substitution rules, never a silent replacement.
+When the caller requires two independent strong judgments, prefer any two of Opus, Astra and Neon. For a three-family design panel, prefer all three, with Grok as another option. For a red team independent of the parent, choose a strong model from another creator. Preserve the caller's required count and diversity when selecting from the live catalog; if they cannot be met, report the gap. A user-pinned unavailable provider/model or a failed dispatch follows T3's substitution rules, never a silent replacement.
 
 ## Dispatch and return
 
