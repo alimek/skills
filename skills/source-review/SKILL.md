@@ -58,8 +58,7 @@ The receipt is the part of the ledger that certifies one HEAD: the ledger refere
 
 A receipt is **valid** for a HEAD when the chain reaches exactly that SHA and:
 
-- the code is covered by two completed FULL baselines plus two-reviewer DELTAs for every later code change; and
-- each narrow DELTA has one reviewer and its recorded kind, appended as shared coverage without claiming the other model reviewed it; and
+- the code is covered by two completed FULL baselines plus a DELTA for every later code change, each with the reviewers Dispatch requires for its scope; a narrow DELTA's one reviewer and recorded kind are appended as shared coverage without claiming the other model reviewed it; and
 - no accepted must-have is open; late findings do not count.
 
 This section is the only definition of receipt validity; later stages point here rather than restating it. A stage checks the receipt against the current HEAD once, and later stages trust that check for the same HEAD. A valid receipt needs no fresh pair of reports per commit. An uncovered change goes back to this review at the scope the ledger supports.
