@@ -40,4 +40,4 @@ Ask in your own thread and stay on the task while an essential decision or permi
 
 ## Corrections
 
-A visit caused by review or CI findings is a **correction**. Repair every accepted must-have and add the regression protection it needs. Decline a finding only with evidence. After pushing, post a correction update as `$pr-comments` describes, and put its URL in the handoff message. Closing a finding is the independent reviewer's call.
+A visit caused by review or CI findings is a **correction**. Repair every accepted must-have and add the regression protection it needs. Repair the class, not the instance: before handback, check each finding's sibling cases (other interleavings, branches, inputs) and every other caller of the contract it touches, and fix what shares the defect. Decline a finding only with evidence. Before each correction handoff, confirm the PR merges cleanly into its current base; resolve any conflict in the same visit and verify the result. After pushing, post a correction update as `$pr-comments` describes, and put its URL in the handoff message. Closing a finding is the independent reviewer's call.

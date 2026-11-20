@@ -26,6 +26,12 @@ only when it is one of:
 Preferences, speculative improvements, refactors and unrelated baseline issues are out of scope.
 A complete review may find nothing.
 
+When you find a defect, sweep its whole class before replying: every interleaving of a race, every
+caller of a changed contract, every instance of the broken rule. Report each instance; this pass
+is the chance to find them all.
+<DELTA only: new findings must come from code this delta introduced or made reachable. Mark any
+other finding by prefixing it with LATE; it is recorded as a follow-up and blocks nothing.>
+
 Reply:
 VERDICT: PASS or CHANGES
 COVERAGE: <what you read; what you could not verify from source>
