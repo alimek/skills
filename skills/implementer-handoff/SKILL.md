@@ -12,8 +12,9 @@ This skill overrides any implementation skill it is combined with wherever they 
 ## Workspace and PR
 
 - Work in the workspace and on the branch this task assigns, on every visit. When the task names a PR, publish to its head repository and head branch (on a fork PR that is not `origin`), then confirm the PR reports your HEAD SHA.
+- Before every handoff (including the first), fetch and confirm the branch merges cleanly into its current target base; resolve any conflict in the same visit and verify the result.
 - All work lands in **one PR**. It stays a draft until the independent review passes; on a correction visit, mark it draft again before changing code.
-- Write the PR body with `$pr` inside the repository's PR template, with the required attachments, before the handoff.
+- Write the PR body with `$pr` inside the repository's PR template, with the required attachments, before the handoff. When the repository defines a PR-body or UI-evidence check, run it before handing off so missing evidence does not bounce through review.
 - The reviewer's ledger, reports and last reviewed HEAD are the reviewer's records. Read them; leave them unedited.
 
 ## Verification
@@ -40,4 +41,4 @@ Ask in your own thread and stay on the task while an essential decision or permi
 
 ## Corrections
 
-A visit caused by review or CI findings is a **correction**. Repair every accepted must-have and add the regression protection it needs. Repair the class, not the instance: before handback, check each finding's sibling cases (other interleavings, branches, inputs) and every other caller of the contract it touches, and fix what shares the defect. Decline a finding only with evidence. Before each correction handoff, confirm the PR merges cleanly into its current base; resolve any conflict in the same visit and verify the result. After pushing, post a correction update as `$pr-comments` describes, and put its URL in the handoff message. Closing a finding is the independent reviewer's call.
+A visit caused by review or CI findings is a **correction**. Repair every accepted must-have and add the regression protection it needs. Repair the class, not the instance: before handback, check each finding's sibling cases (other interleavings, branches, inputs) and every other caller of the contract it touches, and fix what shares the defect. Decline a finding only with evidence. After pushing, post a correction update as `$pr-comments` describes, and put its URL in the handoff message. Closing a finding is the independent reviewer's call.

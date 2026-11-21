@@ -147,16 +147,114 @@ def snapshot(url):
     }
 
 
+def compact_check(check):
+    if check.get("__typename") == "CheckRun":
+        passing = check.get("status") == "COMPLETED" and check.get("conclusion") in ("SUCCESS", "NEUTRAL", "SKIPPED")
+        out = {
+            "__typename": "CheckRun",
+            "name": check.get("name"),
+            "status": check.get("status"),
+            "conclusion": check.get("conclusion"),
+            "isRequired": check.get("isRequired"),
+            "startedAt": check.get("startedAt"),
+            "completedAt": check.get("completedAt"),
+            "detailsUrl": check.get("detailsUrl"),
+            "app": ((check.get("checkSuite") or {}).get("app") or {}).get("slug"),
+            "workflow": (((check.get("checkSuite") or {}).get("workflowRun") or {}).get("workflow") or {}).get("name"),
+        }
+        if not passing:
+            out["title"] = check.get("title")
+            out["summary"] = check.get("summary")
+            out["text"] = check.get("text")
+        return out
+    return {
+        "__typename": check.get("__typename"),
+        "context": check.get("context"),
+        "state": check.get("state"),
+        "isRequired": check.get("isRequired"),
+        "createdAt": check.get("createdAt"),
+        "description": check.get("description"),
+        "targetUrl": check.get("targetUrl"),
+        "creator": (check.get("creator") or {}).get("login"),
+    }
+
+
+def compact_review(review):
+    return {
+        "id": review.get("id"),
+        "user": (review.get("user") or {}).get("login"),
+        "state": review.get("state"),
+        "commit_id": review.get("commit_id"),
+        "submitted_at": review.get("submitted_at"),
+        "html_url": review.get("html_url"),
+        "body": review.get("body"),
+    }
+
+
+def compact_comment(comment):
+    out = {
+        "id": comment.get("id"),
+        "user": (comment.get("user") or {}).get("login"),
+        "created_at": comment.get("created_at"),
+        "updated_at": comment.get("updated_at"),
+        "html_url": comment.get("html_url"),
+        "body": comment.get("body"),
+    }
+    if "path" in comment:
+        out["path"] = comment.get("path")
+        out["line"] = comment.get("line")
+        out["in_reply_to_id"] = comment.get("in_reply_to_id")
+        out["commit_id"] = comment.get("commit_id")
+    return out
+
+
+def compact_snapshot(result):
+    unresolved_threads = [t for t in result["reviewThreads"] if not t.get("isResolved")]
+    resolved_root_ids = {
+        node["databaseId"]
+        for t in result["reviewThreads"]
+        if t.get("isResolved")
+        for node in ((t.get("comments") or {}).get("nodes") or [])
+        if node.get("databaseId") is not None
+    }
+    unresolved_inline = [
+        compact_comment(c)
+        for c in result["inlineComments"]
+        if c.get("id") not in resolved_root_ids and c.get("in_reply_to_id") not in resolved_root_ids
+    ]
+    checks = [compact_check(c) for c in result["checks"]]
+    return {
+        "observedAt": result["observedAt"],
+        "stable": result["stable"],
+        "prBefore": result["prBefore"],
+        "prAfter": result["prAfter"],
+        "checksHeadOid": result["checksHeadOid"],
+        "checks": checks,
+        "requiredChecks": [c for c in checks if c.get("isRequired")],
+        "reviews": [compact_review(r) for r in result["reviews"]],
+        "issueComments": [compact_comment(c) for c in result["issueComments"]],
+        "inlineComments": unresolved_inline,
+        "reviewThreads": unresolved_threads,
+        "omitted": {
+            "resolvedThreads": len(result["reviewThreads"]) - len(unresolved_threads),
+            "resolvedInlineComments": len(result["inlineComments"]) - len(unresolved_inline),
+        },
+    }
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("url", help="Full GitHub PR URL")
+    parser.add_argument("--compact", action="store_true",
+                        help="Strip GitHub metadata noise, resolved threads and passing check logs")
     args = parser.parse_args()
     try:
         result = snapshot(args.url)
     except (OSError, RuntimeError, ValueError, KeyError, TypeError, subprocess.TimeoutExpired) as error:
         print(json.dumps({"error": str(error), "readiness": "unproven"}), file=sys.stderr)
         return 1
-    print(json.dumps(result, indent=2))
+    output = compact_snapshot(result) if args.compact else result
+    print(json.dumps(output, indent=2))
     return 0 if result["stable"] else 2
 
 

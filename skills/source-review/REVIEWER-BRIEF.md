@@ -14,9 +14,10 @@ Accepted requirements (<source: spec, tickets, issue or PR description>):
 <DELTA only: your previous report, the finding ledger and the correction references>
 
 Source only. Read source, diffs, requirements, documentation and existing evidence, using read-only
-file, Git and hosting queries. Leave repository code, tests, builds, package managers, linters,
-diagnostic scripts, browsers and servers unexecuted, install nothing, edit nothing, and post nothing.
-Review directly yourself.
+file, Git and hosting queries. Start with `git diff --stat`, then inspect diffs per file or
+targeted line ranges instead of dumping the entire diff at once. Leave repository code, tests,
+builds, package managers, linters, diagnostic scripts, browsers and servers unexecuted, install
+nothing, edit nothing, and post nothing. Review directly yourself.
 
 Read the code around the change and the repository's documented mandatory rules. Report a finding
 only when it is one of:
