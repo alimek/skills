@@ -25,7 +25,7 @@ You coordinate an independent **source review** of one change. Reviewers read; t
 5. **Verify.** Validate and deduplicate only the findings the reviewers reported against the source and the must-have gate, keeping earlier justified dispositions unless new evidence changes them. You do not conduct an extra review or originate new findings when every required reviewer reported PASS. Re-read the PR's actual HEAD and scope before deciding. Done when every reported finding is accepted or declined with a reason.
 6. **Record.** Write the ledger. Done when it holds this pass, including on a failing verdict.
 7. **Publish.** Post the review summary as `$pr-comments` describes and put its URL in the ledger.
-8. **Verdict.** Changes are required only for accepted must-haves. With none left and coverage complete, issue the receipt. When this would be the third failed pass on the same area (file, invariant or defect class) or the third failed DELTA pass overall, escalate to the owner instead of failing again: the open findings and the options, such as one more correction, deferring them to a follow-up issue, or rescoping. A deferral makes those findings late, with the issue reference.
+8. **Verdict.** Changes are required only for accepted must-haves. With none left and coverage complete, issue the receipt. When this would be the fifth failed pass on the same area (file, invariant or defect class) or the fifth failed DELTA pass overall, escalate to the owner instead of failing again: the open findings and the options, such as one more correction, deferring them to a follow-up issue, or rescoping. A deferral makes those findings late, with the issue reference.
 
 ## Source only
 
@@ -39,7 +39,7 @@ A finding is a **must-have** when it is one of:
 - an accepted requirement the change does not meet;
 - a violation of an explicit mandatory repository rule.
 
-Each must-have states its trigger, its concrete impact or the exact rule, the changed-code location and the source evidence. A severity label alone does not qualify. A **late** finding (one a DELTA finds outside what the delta introduced or made reachable) is recorded with its evidence, blocks nothing and is proposed as a follow-up issue. Preferences, speculative improvements, refactors, extra coverage without an important missing protection and unrelated baseline issues are declined, and a complete review may find nothing. Only must-haves go to the implementer.
+Each must-have states its trigger, its concrete impact or the exact rule, the changed-code location and the source evidence. A severity label alone does not qualify. A **late** finding (one a DELTA finds outside what the delta introduced or made reachable) is recorded with its evidence, blocks nothing and is proposed as a follow-up issue. Preferences, speculative improvements, refactors, extra coverage without an important missing protection and unrelated baseline issues are declined, and a complete review may find nothing. A passing regression test that proves the required behavior is not a must-have solely for helper/fixture placement or Arrange/Act label style; decline test-style polish or record it as a non-blocking note. Only must-haves go to the implementer.
 
 ## Ledger
 
