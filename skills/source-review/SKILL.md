@@ -17,15 +17,15 @@ You coordinate an independent **source review** of one change. Reviewers read; t
    - **REUSE**: HEAD and effective scope are unchanged. Reuse the reports and assess only new concrete evidence.
 
    A new SHA alone keeps existing coverage. Go back to FULL only when coverage is missing or unverifiable, the accepted scope materially changed, or a rewrite cannot be reconciled with the reviewed code; write down why.
-4. **Dispatch.** For FULL and for a DELTA that touches code, use `$fan-out` for two reviewers on strong models from different model families. One fresh reviewer is enough for a **narrow DELTA**, and you record which kind applies:
+4. **Dispatch.** For FULL and for a broad DELTA that touches code, use `$fan-out` for two reviewers on strong models from different model families. Default to one fresh reviewer for a **narrow DELTA**, and record which kind applies:
    - limited to prose documentation or comments, with no executable, configuration, dependency, generated or contractual change; or
-   - only correcting listed findings, at most 100 changed lines including tests.
+   - only correcting listed findings, at most 100 changed non-test lines (excluding test additions and updates).
 
    REUSE dispatches nobody. Give each reviewer the brief in [REVIEWER-BRIEF.md](REVIEWER-BRIEF.md), filled in, and nothing about the other reviewer's answer or the implementer's own verdict. For DELTA add that reviewer's previous report, the ledger and the correction references. Done when every reviewer the scope requires has reported; a missing or timed-out report is missing, never a pass.
 5. **Verify.** Check each finding against the source and the must-have gate yourself, deduplicate, and keep earlier justified dispositions unless new evidence changes them. You validate and consolidate; the reviewers did the reviewing. Re-read the PR's actual HEAD and scope before deciding. Done when every finding is accepted or declined with a reason.
 6. **Record.** Write the ledger. Done when it holds this pass, including on a failing verdict.
 7. **Publish.** Post the review summary as `$pr-comments` describes and put its URL in the ledger.
-8. **Verdict.** Changes are required only for accepted must-haves. With none left and coverage complete, issue the receipt. When this would be the third failed pass on the same area (file, invariant or defect class), escalate to the owner instead of failing again: the open findings and the options, such as one more correction, deferring them to a follow-up issue, or rescoping. A deferral makes those findings late, with the issue reference.
+8. **Verdict.** Changes are required only for accepted must-haves. With none left and coverage complete, issue the receipt. When this would be the third failed pass on the same area (file, invariant or defect class) or the third failed DELTA pass overall, escalate to the owner instead of failing again: the open findings and the options, such as one more correction, deferring them to a follow-up issue, or rescoping. A deferral makes those findings late, with the issue reference.
 
 ## Source only
 
